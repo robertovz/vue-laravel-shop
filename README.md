@@ -24,7 +24,17 @@ E-commerce application built with Vuejs2+ and Laravel shows its simple design an
 - Checkout
 - Carousel controlling the number of components
 - Carousel with product categories
-- Sort products by BestSellers, Newest, highest to lowest and lowest to highest price
-- Filter products by available type, frame material, speed, wheel size and wheel spec
+- Sort products by best sellers, newest, highest to lowest and lowest to highest price
+- Filter products by available category, color, frame material, speed, wheel size and wheel spec
 - Product Rating
 - And much more...
+
+
+## Installation
+After you clone this project, do the following:
+- Run `composer install`
+- Save as the `.env.example` to `.env` and edit database credentials there
+- Run `php artisan key:generate` to generate the app key
+- Run `npm install`
+- Run `php artisan migrate`
+- Enjoy!
