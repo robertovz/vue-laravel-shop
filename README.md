@@ -2,9 +2,11 @@
 
 E-Commerce Web App with Vuejs 2+ and Laravel 5.7
 
+
 # Project Overview
 
 E-commerce application built with Vuejs2+ and Laravel shows its simple design and component-based structuring.
+
 
 ## Features
 - Admin LTE 3
