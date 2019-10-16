@@ -41,6 +41,18 @@ class DetailController extends Controller
         return Product::where('name', 'like', '%'.$search.'%')->latest()->get();
     }
 
+    
+    public function update(Request $request, $id)
+    {
+        $product = Product::findOrFail($id);
+
+        $product->update(
+            $request->only(['total_rating'])
+        );
+
+        return ['message' => 'Rating updated!'];
+    }
+
     public function destroy($id)
     {
         $product = Rating::findOrFail($id);

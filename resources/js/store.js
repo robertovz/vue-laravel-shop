@@ -10,11 +10,11 @@ let activities = window.localStorage.getItem('activities');
 
 export default new Vuex.Store({
     state: {
-        cart: cart ? JSON.parse(cart) : [],
-        compare: compare ? JSON.parse(compare) : [],
-        lastProduct: lastProduct ? JSON.parse(lastProduct) : [],
-        viewProducts: viewProducts ? JSON.parse(viewProducts) : [],
-        activities: activities ? JSON.parse(activities) : [],
+        cart:[],
+        compare:[],
+        lastProduct:  [],
+        viewProducts: [],
+        activities: [],
         products: {},
         subTotal: 0,
         tax: 0,

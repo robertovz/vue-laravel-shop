@@ -146,6 +146,7 @@ export default {
 .compare-card {
   max-height: 470px;
   overflow-y: auto;
+  text-align: center;
 }
 .modal-compare td {
   min-width: 200px;

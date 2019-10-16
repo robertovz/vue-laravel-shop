@@ -2,9 +2,22 @@
   <nav>
     <div class="nav-top">
       <div class="container">
-        <div class="row">
-          <ul class="navbar-nav ml-auto"></ul>
-        </div>
+        <ul class="navbar-top d-flex" v-if="$gate.userId() > 0">
+          <li class="navtop-item">
+            <a href="/userboard" class="navtop-link">Profile</a>
+          </li>
+          <li class="navtop-item">
+            <a href="#" class="navtop-link" @click="logout">Logout</a>
+          </li>
+        </ul>
+        <ul class="navbar-top d-flex" v-else>
+          <li class="navtop-item">
+            <a href="/login" class="navtop-link">Login</a>
+          </li>
+          <li class="navtop-item">
+            <a href="/register" class="navtop-link">Register</a>
+          </li>
+        </ul>
       </div>
     </div>
     <div class="nav-center">
@@ -28,7 +41,7 @@
                   to="/products"
                   @click.native="searchit"
                   v-model="search"
-                  class="btn btn-outline-success search-btn"
+                  class="btn btn-outline search-btn"
                   style="width: max-content!important;"
                 >
                   <i class="fa fa-search" style="font-size: 17px;"></i>
@@ -39,11 +52,11 @@
           <div class="col-md-4">
             <div class="float-right">
               <div class="cart-box" data-toggle="modal" data-target="#cart">
-                  <a class="btn btn-outline lightblue">
-                    <span style>CART / {{ this.$store.getters.totalPrice | currency }}</span>
-                    <i class="fa fa-shopping-cart" style="font-size: 20px"></i>
-                    <span class="badge badge-light ml-1">{{this.$store.state.cart.length}}</span>
-                  </a>
+                <a class="btn btn-outline lightblue">
+                  <span style>CART / {{ this.$store.getters.totalPrice | currency }}</span>
+                  <i class="fa fa-shopping-cart" style="font-size: 20px"></i>
+                  <span class="badge badge-light ml-1">{{this.$store.state.cart.length}}</span>
+                </a>
               </div>
             </div>
           </div>
@@ -129,44 +142,32 @@
                     @click.native="getCategory($event)"
                     :to="{ name: 'products', params: { product: 'comfort', type: 'category' }}"
                     class="dropdown-item"
-                  >
-                  Performance
-                  </routerLink>
+                  >Performance</routerLink>
                   <routerLink
                     @click.native="getCategory($event)"
                     :to="{ name: 'products', params: { product: 'comfort', type: 'category' }}"
                     class="dropdown-item"
-                  >
-                  Adventure / Gravel
-                  </routerLink>
+                  >Adventure / Gravel</routerLink>
                   <routerLink
                     @click.native="getCategory($event)"
                     :to="{ name: 'products', params: { product: 'comfort', type: 'category' }}"
                     class="dropdown-item"
-                  >
-                    Touring
-                  </routerLink>
+                  >Touring</routerLink>
                   <routerLink
                     @click.native="getCategory($event)"
                     :to="{ name: 'products', params: { product: 'comfort', type: 'category' }}"
                     class="dropdown-item"
-                  >
-                    Triathlon / Time
-                  </routerLink>
+                  >Triathlon / Time</routerLink>
                   <routerLink
                     @click.native="getCategory($event)"
                     :to="{ name: 'products', params: { product: 'comfort', type: 'category' }}"
                     class="dropdown-item"
-                  >
-                    Trial
-                  </routerLink>
+                  >Trial</routerLink>
                   <routerLink
                     @click.native="getCategory($event)"
                     :to="{ name: 'products', params: { product: 'comfort', type: 'category' }}"
                     class="dropdown-item"
-                  >
-                    Track
-                  </routerLink>
+                  >Track</routerLink>
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="#">Something else here</a>
                 </div>
@@ -176,84 +177,61 @@
                     @click.native="getCategory($event)"
                     :to="{ name: 'products', params: { product: 'mountain', type: 'category' }}"
                     class="dropdown-item"
-                  >
-                  Full Suspension
-                  </routerLink>
+                  >Full Suspension</routerLink>
                   <routerLink
                     @click.native="getCategory($event)"
                     :to="{ name: 'products', params: { product: 'mountain', type: 'category' }}"
                     class="dropdown-item"
-                  >
-                  Hardtail
-                  </routerLink>
+                  >Hardtail</routerLink>
                   <routerLink
                     @click.native="getCategory($event)"
                     :to="{ name: 'products', params: { product: 'mountain', type: 'category' }}"
                     class="dropdown-item"
-                  >
-                    Downhill / Freeride
-                  </routerLink>
+                  >Downhill / Freeride</routerLink>
                   <routerLink
                     @click.native="getCategory($event)"
                     :to="{ name: 'products', params: { product: 'mountain', type: 'category' }}"
                     class="dropdown-item"
-                  >
-                    Jump
-                  </routerLink>
+                  >Jump</routerLink>
                   <routerLink
                     @click.native="getCategory($event)"
                     :to="{ name: 'products', params: { product: 'mountain', type: 'category' }}"
                     class="dropdown-item"
-                  >
-                    Fat Bikes
-                  </routerLink>
-                  
+                  >Fat Bikes</routerLink>
                 </div>
-                
+
                 <div class="dropdown-section dropdown-section-left">
                   <p class="text-muted font-weight-bold mx-4 mt-2 mb-1">Cyclocross Bikes</p>
                   <routerLink
                     @click.native="getCategory($event)"
                     :to="{ name: 'products', params: { product: 'cyclocross', type: 'category' }}"
                     class="dropdown-item"
-                  >
-                  Urban / Fitness
-                  </routerLink>
+                  >Urban / Fitness</routerLink>
                   <routerLink
                     @click.native="getCategory($event)"
                     :to="{ name: 'products', params: { product: 'cyclocross', type: 'category' }}"
                     class="dropdown-item"
-                  >
-                  Urban / Hybrid
-                  </routerLink>
+                  >Urban / Hybrid</routerLink>
                   <routerLink
                     @click.native="getCategory($event)"
                     :to="{ name: 'products', params: { product: 'cyclocross', type: 'category' }}"
                     class="dropdown-item"
-                  >
-                    Flat Bar
-                  </routerLink>
+                  >Flat Bar</routerLink>
                   <routerLink
                     @click.native="getCategory($event)"
                     :to="{ name: 'products', params: { product: 'cyclocross', type: 'category' }}"
                     class="dropdown-item"
-                  >
-                    Single Speed / Fixed
-                  </routerLink>
+                  >Single Speed / Fixed</routerLink>
                   <routerLink
                     @click.native="getCategory($event)"
                     :to="{ name: 'products', params: { product: 'cyclocross', type: 'category' }}"
                     class="dropdown-item"
-                  >
-                    Gear
-                  </routerLink>
+                  >Gear</routerLink>
                   <routerLink
                     @click.native="getCategory($event)"
                     :to="{ name: 'products', params: { product: 'cyclocross', type: 'category' }}"
                     class="dropdown-item"
-                  >
-                    Cargo
-                  </routerLink>
+                  >Cargo</routerLink>
                 </div>
               </div>
             </li>
@@ -278,11 +256,19 @@
               >
                 <i class="fas fa-user mr-2"></i>Account
               </a>
-              <div class="dropdown-menu dropdown-account" aria-labelledby="navbarDropdown">
+              <div
+                class="dropdown-menu dropdown-account"
+                aria-labelledby="navbarDropdown"
+                v-if="$gate.userId() > 0"
+              >
                 <routerLink to="/userBoard" class="dropdown-item">Orders</routerLink>
                 <routerLink to="/profile" class="dropdown-item">Profile</routerLink>
                 <routerLink to="/userBoard" class="dropdown-item">UserBoard</routerLink>
                 <routerLink to="/profile" class="dropdown-item">Activities</routerLink>
+              </div>
+              <div class="dropdown-menu dropdown-account" aria-labelledby="navbarDropdown" v-else>
+                <a href="/login" class="dropdown-item">Login</a>
+                <a href="/register" class="dropdown-item">Register</a>
               </div>
             </li>
 
@@ -337,11 +323,11 @@
                               <div class="col-md-4 col-sm-6">
                                 <router-link
                                   :to="{ name: 'details', 
-                        params: { p_product: product, p_id: product.id }}"
+                    params: { p_name: product.name, p_id: product.id }}"
                                   class="mt-5"
                                 >
                                   <img
-                                    :src="'img/products/' + product.image"
+                                    :src="'/img/products/' + product.image"
                                     class="card-img-top"
                                     alt="..."
                                     height="auto"
@@ -362,10 +348,10 @@
                                   <div class="py-2" style="height: 65px">
                                     <router-link
                                       :to="{ name: 'details', 
-                    params: { p_product: product, p_id: product.id }}"
+                    params: { p_name: product.name, p_id: product.id }}"
                                       class="text-left black card-name"
-                                    >
-                                      {{ product.name.substring(0,23) }}
+                                    ><span class="black">
+                                      {{ product.name.substring(0,23) }}</span>
                                       <span
                                         v-if="(product.name).length > 23"
                                       >...</span>
@@ -409,6 +395,7 @@ export default {
     showCart() {
       $("#cart").modal("show");
     },
+
     handleScroll() {
       if (window.scrollY > 120 && window.innerWidth > 768) {
         $(".navbar").css("position", "fixed");
@@ -422,20 +409,37 @@ export default {
         $("body").css("padding-top", "60px");
       } else {
         $(".navbar").css("position", "relative");
-        $(".navbar").css("box-shadow", "none");
+        $(".navbar").css("box-shadow", "solid 1px 3px rgba(0, 0, 0, 0.5)");
         $(".nav-link").css("color", "#fff");
         $(".navbar").css("background", "#16222a");
         $("body").css("padding-top", "0px");
       }
     },
+
     getCategory(event) {
       var categ = event.target.name;
       axios
         .get("api/product/category?q=" + categ)
         .then(({ data }) => (this.category = data.data));
     },
+
     searchit() {
       this.$store.commit("searchit", this.search);
+    },
+
+    logout() {
+      axios
+        .post("logout")
+        .then(response => {
+          if (response.status === 302 || 401) {
+            console.log("logout");
+            this.$router.push("/");
+            this.$router.go();
+          } else {
+            // throw error and go to catch block
+          }
+        })
+        .catch(error => {});
     }
   },
   computed: {
@@ -453,12 +457,72 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 .navbar-slide {
   visibility: visible;
   flex-basis: 33.4%;
   width: 33.4%;
 }
+
+//Navtop
+
+.nav-top {
+  background: #f8f9fa !important;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 25px;
+
+  .navbar-top {
+    float: right;
+
+    .navtop-item {
+      list-style: none;
+
+      .navtop-link {
+        color: #636b6f;
+        margin-left: 10px;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 0.1rem;
+        font-size: 13px;
+        margin-top: 3px;
+
+        &:hover {
+          color: #04a7bb;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .nav-top {
+    margin-top: 55px;
+  }
+}
+
+//End Of Navtop
+
+//Navcenter
+
+.nav-center {
+  padding: 20px;
+  margin-top: 15px;
+}
+
+@media only screen and (max-width: 767px) {
+  .nav-center {
+    margin-top: 75px;
+    padding: 0;
+    text-align: center;
+  }
+}
+
+//End Of Navcenter
+
+//Navbottom
 
 @media only screen and (max-width: 1200px) {
   .navbar-slide {
@@ -482,15 +546,11 @@ export default {
   background: #16222a;
   z-index: 15;
 }
-.nav-top {
-  background: #f8f9fa !important;
-  padding: 20px;
-}
-.nav-center {
-  padding: 20px;
-}
 .nav-item {
   padding: 3px 5px;
+}
+.nav-bottom {
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.5);
 }
 .navbar-nav .nav-link {
   font-size: 14px !important;
@@ -576,7 +636,7 @@ export default {
 
   .dropdown-history {
     width: 100%;
-    position: absolute!important;
+    position: absolute !important;
     top: -100px;
     left: 0;
     height: 400px;
@@ -608,12 +668,6 @@ export default {
     width: 100%;
     left: 0;
     right: 0;
-  }
-  .nav-top {
-    padding-top: 70px;
-  }
-  .nav-center {
-    text-align: center;
   }
   .nav-link {
     margin: 1px 0 1px 25px;
@@ -649,4 +703,5 @@ export default {
     border: none !important;
   }
 }
+//End Of Navbottom
 </style>

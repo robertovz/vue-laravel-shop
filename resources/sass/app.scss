@@ -14,11 +14,23 @@ $fa-font-path: "../webfonts";
 *:focus {
     outline: none!important;
 }
+
 .content {
     padding-top: 10px;
     background: #f8f9fa!important;
     padding-bottom: 300px;
-    text-align: left;
+    text-align: left!important;
+}
+
+.menu-header, .modal-custom-header {
+  background: #04a7bb;
+  color: #fff;
+}
+
+@media only screen and (max-width: 767px) {
+  .card {
+    margin-top: 75px;
+  }
 }
 .navbar-laravel {
     background: #fff;
@@ -60,3 +72,4 @@ ul.breadcrumb {
   ul.breadcrumb li a:hover {
     text-decoration: underline;
   }
+

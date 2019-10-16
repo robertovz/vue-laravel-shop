@@ -70,7 +70,7 @@
           <div class="card product-item">
             <router-link
               :to="{ name: 'details', 
-                    params: { p_product: product, p_id: product.id }}"
+                    params: { p_name: product.name, p_id: product.id }}"
               class="text-center d-block"
             >
               <img
@@ -84,7 +84,7 @@
               <div class="d-flex justify-content-between">
                 <router-link
                   :to="{ name: 'details', 
-                    params: { p_product: product, p_id: product.id }}"
+                    params: { p_name: product.name, p_id: product.id }}"
                   class="text-left black card-name"
                 >
                   {{ product.name.substring(0,45) }}
@@ -99,44 +99,25 @@
                   ...
                   <router-link
                     :to="{ name: 'details', 
-                    params: { p_product: product, p_id: product.id }}"
+                    params: { p_name: product.name, p_id: product.id }}"
                     class="text-left black card-name"
                   >See more</router-link>
                 </span>
               </div>
             </div>
-            <div class="d-block mt-2 mb-4">
-              <add-to-cart
-                :pId="product.id"
-                :pName="product.name"
-                :pPrice="product.price"
-                :pImage="product.image"
-                :pAmount="product.amount"
-              />
+            <div class="d-block mt-2 mb-4 text-center">
+              <add-to-cart :p_product="product" />
               <miniCart />
               <router-link
                 :to="{ name: 'details', 
-                    params: { p_product: product, p_id: product.id }}"
+                    params: { p_name: product.name, p_id: product.id }}"
                 class="btn bcustom-secondary"
               >
                 <span>
                   <i class="fa fa-search icon"></i>
                 </span>
               </router-link>
-              <add-to-compare
-                :pId="product.id"
-                :pName="product.name"
-                :pPrice="product.price"
-                :pImage="product.image"
-                :pDescription="product.description"
-                :pAmount="product.amount"
-                :pCategory="product.category"
-                :pColor="product.color"
-                :pFrame="product.frame_material"
-                :pSpeed="product.speed"
-                :pWheelSize="product.wheel_size"
-                :pWheelSpec="product.wheel_spec"
-              />
+              <add-to-compare :p_product="product" />
               <miniList />
             </div>
           </div>
@@ -148,8 +129,8 @@
             <div class="row">
               <div class="col-md-4">
                 <router-link
-                  :to="{ name: 'details', 
-                    params: { p_product: product, p_id: product.id }}"
+                  :to="{ name: 'details' , 
+                    params: { p_name: product.name, p_id: product.id }}"
                   class="text-center d-block"
                 >
                   <img
@@ -165,7 +146,7 @@
                   <div class="d-flex justify-content-between">
                     <router-link
                       :to="{ name: 'details', 
-                    params: { p_product: product, p_id: product.id }}"
+                    params: { p_name: product.name, p_id: product.id }}"
                       class="text-left black card-name"
                     >
                       {{ product.name.substring(0,45) }}
@@ -183,7 +164,7 @@
                       ...
                       <router-link
                         :to="{ name: 'details', 
-                    params: { p_product: product, p_id: product.id }}"
+                    params: { p_name: product.name, p_id: product.id }}"
                         class="text-left black card-name"
                       >See more</router-link>
                     </span>
@@ -197,37 +178,19 @@
               </div>
               <div class="col-md-4 p-3">
                 <div class="d-block mt-2 mb-4">
-                  <add-to-cart
-                    :pId="product.id"
-                    :pName="product.name"
-                    :pPrice="product.price"
-                    :pImage="product.image"
-                    :pAmount="product.amount"
-                  />
+                  <add-to-cart :p_product="product" />
                   <miniCart />
                   <router-link
                     :to="{ name: 'details', 
-                    params: { p_product: product, p_id: product.id }}"
+                    params: { p_name: product.name, p_id: product.id }}"
                     class="btn bcustom-secondary"
                   >
                     <span>
                       <i class="fa fa-search icon"></i>
                     </span>
                   </router-link>
-                  <add-to-compare
-                    :pId="product.id"
-                    :pName="product.name"
-                    :pPrice="product.price"
-                    :pImage="product.image"
-                    :pDescription="product.description"
-                    :pAmount="product.amount"
-                    :pCategory="product.category"
-                    :pColor="product.color"
-                    :pFrame="product.frame_material"
-                    :pSpeed="product.speed"
-                    :pWheelSize="product.wheel_size"
-                    :pWheelSpec="product.wheel_spec"
-                  />
+                  <add-to-compare :p_product="product" />
+                  <miniList />
                 </div>
               </div>
             </div>

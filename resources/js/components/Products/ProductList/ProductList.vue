@@ -11,10 +11,16 @@
                 <router-link to="/">Home</router-link>
               </li>
               <li>
-                <router-link to="/products" :class="{'active' : this.$route.params.product == undefined}">Products</router-link>
+                <router-link
+                  to="/products"
+                  :class="{'active' : this.$route.params.product == undefined}"
+                >Products</router-link>
               </li>
               <li v-if="this.$route.params.product !== undefined">
-                <router-link to="/products" class="text-capitalize active">{{this.$route.params.product}} Bikes</router-link>
+                <router-link
+                  to="/products"
+                  class="text-capitalize active"
+                >{{this.$route.params.product}} Bikes</router-link>
               </li>
             </ul>
           </div>
@@ -28,21 +34,46 @@
             <div class="text-left">
               <!-- cd-filter-content -->
               <form class="form-inline">
-                <div v-if="categories.length > 0" class="text-capitalize m-3 py-2">Categories: {{categories[0]}}<i class="fas fa-times red text-right"></i></div>
-                <div v-if="colors.length > 0" class="text-capitalize m-3 py-2">Colors: {{colors[0]}}<div class="text-right" @v-model="colors"><i class="fas fa-times red"></i></div></div>
+                <div v-if="categories.length > 0" class="text-capitalize m-3 py-2">
+                  Categories: {{categories[0]}}
+                  <i class="fas fa-times red text-right"></i>
+                </div>
+                <div v-if="colors.length > 0" class="text-capitalize m-3 py-2">
+                  Colors: {{colors[0]}}
+                  <div class="text-right" @v-model="colors">
+                    <i class="fas fa-times red"></i>
+                  </div>
+                </div>
               </form>
               <form class="form-inline my-lg-0 track-wrapper white" onSubmit="return false;">
-                <h6 class="font-weight-bold pb-4 pt-0 mx-auto track-text">Product Price</h6>
-
-                <div class="track-container">
-                  <span class="multi-range">
-                    <input type="range" :min="minValue" :max="maxValue" id="lower" v-model="minPrice" >
-                    <input type="range" :min="minValue" :max="maxValue" id="upper" v-model="maxPrice" style="position: relative">
-                    <span class="range-value min">$ {{ minPrice }}</span>
-                    <span class="range-value max">$ {{ maxPrice }}</span>
-                  </span>
+                <div class="row mx-auto">
+                  <div class="col-10 mx-auto">
+                    <h6 class="font-weight-bold track-text">Product Price</h6>
+                  </div>
+                  <div class="col-10 mx-auto">
+                    <div class="track-container">
+                      <span class="multi-range">
+                        <input
+                          type="range"
+                          :min="minValue"
+                          :max="maxValue"
+                          id="lower"
+                          v-model="minPrice"
+                        />
+                        <input
+                          type="range"
+                          :min="minValue"
+                          :max="maxValue"
+                          id="upper"
+                          v-model="maxPrice"
+                          style="position: relative"
+                        />
+                        <span class="range-value min">$ {{ minPrice }}</span>
+                        <span class="range-value max">$ {{ maxPrice }}</span>
+                      </span>
+                    </div>
+                  </div>
                 </div>
-
               </form>
               <form class="form-check m-3 py-2">
                 <h5 class="font-weight-bold ml-0">Categories</h5>
@@ -245,7 +276,7 @@ export default {
       min: 10,
       max: 210,
       minValue: 0,
-      maxValue: 150,
+      maxValue: 500,
       step: 5,
       totalSteps: 0,
       percentPerStep: 1,
@@ -257,9 +288,9 @@ export default {
       uniqueSpeed: {},
       uniqueWheelSize: {},
       uniqueWheelSpec: {},
-      upperVal: '',
-      upperSlider: '',
-      maxPrice: 0,
+      upperVal: "",
+      upperSlider: "",
+      maxPrice: 500,
       minPrice: 0,
       aux: "",
       pos: {
@@ -268,30 +299,41 @@ export default {
     };
   },
   methods: {
-    handleChange(e) {
-    },
+    handleChange(e) {},
 
     filterProducts() {},
 
     removeFilter(e) {
       this.products = this.items;
-      if(this.categories.length > 0) {
-        this.products = this.products.filter(product => product.category == this.categories[0])
+      if (this.categories.length > 0) {
+        this.products = this.products.filter(
+          product => product.category == this.categories[0]
+        );
       }
-      if(this.colors.length > 0) {
-        this.products = this.products.filter(product => product.color == this.colors[0])
+      if (this.colors.length > 0) {
+        this.products = this.products.filter(
+          product => product.color == this.colors[0]
+        );
       }
-      if(this.frame_material.length > 0) {
-        this.products = this.products.filter(product => product.frame_material == this.frame_material[0])
+      if (this.frame_material.length > 0) {
+        this.products = this.products.filter(
+          product => product.frame_material == this.frame_material[0]
+        );
       }
-      if(this.speed.length > 0) {
-        this.products = this.products.filter(product => product.speed == this.speed[0])
+      if (this.speed.length > 0) {
+        this.products = this.products.filter(
+          product => product.speed == this.speed[0]
+        );
       }
-      if(this.wheel_size.length > 0) {
-        this.products = this.products.filter(product => product.wheel_size == this.wheel_size[0])
+      if (this.wheel_size.length > 0) {
+        this.products = this.products.filter(
+          product => product.wheel_size == this.wheel_size[0]
+        );
       }
-      if(this.wheel_spec.length > 0) {
-        this.products = this.products.filter(product => product.wheel_spec == this.wheel_spec[0])
+      if (this.wheel_spec.length > 0) {
+        this.products = this.products.filter(
+          product => product.wheel_spec == this.wheel_spec[0]
+        );
       }
 
       this.handleChange();
@@ -344,7 +386,7 @@ export default {
         axios
           .get("/api/product/category?q=" + categ)
           .then(data => {
-            this.products = data.data
+            this.products = data.data;
             this.items = data.data;
             this.loadFilter(data.data);
           })
@@ -365,24 +407,20 @@ export default {
     },
 
     loadPrices(products) {
-      
       this.maxValue = Math.max.apply(
         Math,
         products.map(product => product.price)
       );
       this.maxPrice = this.maxValue;
 
-      
       this.minValue = Math.min.apply(
         Math,
         products.map(product => product.price)
       );
       this.minPrice = this.minValue;
-
     },
 
     loadFilter(products) {
-
       this.uniqueCategory = [
         ...new Set(products.map(product => product.category))
       ];
@@ -437,69 +475,66 @@ export default {
           (prev, curr) => curr.price - prev.price
         ));
       }
-    },
+    }
   },
 
   mounted() {
+    var lowerSlider = document.querySelector("#lower");
+    var upperSlider = document.querySelector("#upper");
+    var lowerVal = parseInt(lowerSlider.value);
+    var upperVal = parseInt(upperSlider.value);
 
-      var lowerSlider = document.querySelector('#lower');
-      var upperSlider = document.querySelector('#upper');
-      var lowerVal = parseInt(lowerSlider.value);
-      var upperVal = parseInt(upperSlider.value);
+    upperSlider.oninput = function() {
+      lowerVal = parseInt(lowerSlider.value);
+      upperVal = parseInt(upperSlider.value);
 
-      upperSlider.oninput = function() {
-        lowerVal = parseInt(lowerSlider.value);
-        upperVal = parseInt(upperSlider.value);
-        
-        if (upperVal < lowerVal + 4) {
-            lowerSlider.value = upperVal - 4;
-            
-            if (lowerVal == lowerSlider.min) {
-              upperSlider.value = 4;
-            }
+      if (upperVal < lowerVal + 4) {
+        lowerSlider.value = upperVal - 4;
+
+        if (lowerVal == lowerSlider.min) {
+          upperSlider.value = 4;
         }
-      };
-
+      }
+    };
 
     lowerSlider.oninput = function() {
       lowerVal = parseInt(lowerSlider.value);
       upperVal = parseInt(upperSlider.value);
-      
-      if (lowerVal > upperVal - 4) {
-          upperSlider.value = lowerVal + 4
-          console.log(this.maxPrice)
-          
-          if (upperVal == upperSlider.max) {
-            lowerSlider.value = parseInt(upperSlider.max) - 4;
-          }
 
+      if (lowerVal > upperVal - 4) {
+        upperSlider.value = lowerVal + 4;
+        console.log(this.maxPrice);
+
+        if (upperVal == upperSlider.max) {
+          lowerSlider.value = parseInt(upperSlider.max) - 4;
+        }
       }
     };
   },
   watch: {
-
-    maxPrice() { 
-      if(this.maxPrice <= this.minPrice - 10 ) {
-        this.minPrice = parseInt(this.maxPrice) - 10;
-      };
+    maxPrice() {
       this.removeFilter();
-      this.products = this.products.filter(product => product.price <= this.maxPrice);
-      this.products = this.products.filter(product => product.price >= this.minPrice);
+      this.products = this.products.filter(
+        product => product.price <= this.maxPrice
+      );
+      this.products = this.products.filter(
+        product => product.price >= this.minPrice
+      );
       this.loadFilter(this.products);
     },
 
-    minPrice() { 
-      if(this.minPrice <= this.maxPrice - 10 ) {
-        this.maxPrice = parseInt(this.minPrice) - 10;
-      };
+    minPrice() {
       this.removeFilter();
-      this.products = this.products.filter(product => product.price <= this.maxPrice);
-      this.products = this.products.filter(product => product.price >= this.minPrice);
+      this.products = this.products.filter(
+        product => product.price <= this.maxPrice
+      );
+      this.products = this.products.filter(
+        product => product.price >= this.minPrice
+      );
       this.loadFilter(this.products);
     },
 
     categories() {
-
       if (this.categories.length == 1) {
         this.products = this.products.filter(
           product => product.category === this.categories[0]
@@ -511,7 +546,6 @@ export default {
       this.loadFilter(this.products);
     },
     colors() {
-
       if (this.colors.length == 1) {
         this.products = this.products.filter(
           product => product.color === this.colors[0]
@@ -521,10 +555,8 @@ export default {
       }
 
       this.loadFilter(this.products);
-      
     },
     frame_material() {
-
       if (this.frame_material.length == 1) {
         this.products = this.products.filter(
           product => product.frame_material === this.frame_material[0]
@@ -534,10 +566,8 @@ export default {
       }
 
       this.loadFilter(this.products);
-      
     },
     speed() {
-
       if (this.speed.length == 1) {
         this.products = this.products.filter(
           product => product.speed === this.speed[0]
@@ -547,10 +577,8 @@ export default {
       }
 
       this.loadFilter(this.products);
-      
     },
     wheel_size() {
-
       if (this.wheel_size.length == 1) {
         this.products = this.products.filter(
           product => product.wheel_size === this.wheel_size[0]
@@ -560,10 +588,8 @@ export default {
       }
 
       this.loadFilter(this.products);
-      
     },
     wheel_spec() {
-
       if (this.wheel_spec.length == 1) {
         this.products = this.products.filter(
           product => product.wheel_spec === this.wheel_spec[0]
@@ -573,8 +599,7 @@ export default {
       }
 
       this.loadFilter(this.products);
-      
-    },
+    }
   },
   created() {
     Fire.$on("searching", () => {
@@ -586,7 +611,6 @@ export default {
           this.items = data.data;
           this.searchItem = true;
           this.loadFilter(data.data);
-          
         })
         .catch(err => {
           console.log(err);
@@ -632,79 +656,78 @@ export default {
   background: #16222a;
   padding: 45px 0;
 }
-.track-text, .track-container {
-    text-align: center;
-    margin: 0 auto;
-    width: 50%;
+.track-text,
+.track-container {
+  text-align: center;
+  margin: 0 auto;
 }
 
-input[type=range] {
-   position: relative;
-   box-sizing: border-box;
-   appearance: none;
-   margin: 0;
-   padding: 0 2px;
-   /* Add some L/R padding to ensure box shadow of handle is shown */
-   overflow: hidden;
-   border: 0;
-   border-radius: 1px;
-   outline: none;
-   background: linear-gradient(grey, grey) no-repeat center;
-   /* Use a linear gradient to generate only the 2px height background */
-   background-size: 100% 2px;
-   pointer-events: none;
+input[type="range"] {
+  position: relative;
+  box-sizing: border-box;
+  appearance: none;
+  margin: 0;
+  padding: 0 2px;
+  /* Add some L/R padding to ensure box shadow of handle is shown */
+  overflow: hidden;
+  border: 0;
+  border-radius: 1px;
+  outline: none;
+  background: linear-gradient(grey, grey) no-repeat center;
+  /* Use a linear gradient to generate only the 2px height background */
+  background-size: 100% 2px;
+  pointer-events: none;
+  width: 100%;
 
-   &:active,
-   &:focus {
-      outline: none;
-   }
+  &:active,
+  &:focus {
+    outline: none;
+  }
 
-   &::-webkit-slider-thumb {
-      height: 15px;
-      width: 15px;
-      border-radius: 28px;
-      background-color: #fff;
-      position: relative;
-      margin: 5px 0;
-      /* Add some margin to ensure box shadow is shown */
-      cursor: pointer;
-      appearance: none;
-      pointer-events: all;
-      box-shadow: 0 1px 4px 0.5px rgba(0, 0, 0, 0.25);
-      &::before {
-            content: ' ';
-            display: block;
-            position: absolute;
-            top: 13px;
-            left: 100%;
-            width: 2000px;
-            height: 2px;
-      }
-   }
+  &::-webkit-slider-thumb {
+    height: 15px;
+    width: 15px;
+    border-radius: 28px;
+    background-color: #fff;
+    position: relative;
+    margin: 5px 0;
+    /* Add some margin to ensure box shadow is shown */
+    cursor: pointer;
+    appearance: none;
+    pointer-events: all;
+    box-shadow: 0 1px 4px 0.5px rgba(0, 0, 0, 0.25);
+    &::before {
+      content: " ";
+      display: block;
+      position: absolute;
+      top: 13px;
+      left: 100%;
+      width: 2000px;
+      height: 2px;
+    }
+  }
 }
 
 .multi-range {
-   position: relative!important;
-   z-index: 100;
-   top: 35px;
-   left: -100px;
+  position: relative !important;
+  top: 35px;
 
-   input[type=range] {
-      position: absolute;
-      
-      &:nth-child(1) {
-         &::-webkit-slider-thumb::before {
-            background-color: purple;
-         }
+  input[type="range"] {
+    position: absolute;
+
+    &:nth-child(1) {
+      &::-webkit-slider-thumb::before {
+        background-color: purple;
       }
+    }
 
-      &:nth-child(2) {
-         background: none;
+    &:nth-child(2) {
+      background: none;
 
-         &::-webkit-slider-thumb::before {
-             background-color: grey; 
-         }
+      &::-webkit-slider-thumb::before {
+        background-color: grey;
       }
-   }
+    }
+  }
 }
 </style>

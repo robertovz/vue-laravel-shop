@@ -15,11 +15,11 @@
           <div class="card">
             <router-link
               :to="{ name: 'details', 
-                        params: { p_product: product, p_id: product.id }}"
+                    params: { p_name: product.name, p_id: product.id }}"
               class="text-center"
             >
               <img
-                :src="'img/products/' + product.image"
+                :src="'/img/products/' + product.image"
                 class="card-img-top"
                 alt="..."
                 width="250px"
@@ -30,7 +30,7 @@
               <div class="d-flex justify-content-between">
                 <router-link
                   :to="{ name: 'details', 
-                    params: { p_product: product, p_id: product.id }}"
+                    params: { p_name: product.name, p_id: product.id }}"
                   class="text-left black card-name"
                 >
                   {{ product.name.substring(0,35) }}
@@ -45,42 +45,24 @@
                   ...
                   <router-link
                     :to="{ name: 'details', 
-                    params: { p_product: product, p_id: product.id }}"
+                    params: { p_name: product.name, p_id: product.id }}"
                     class="text-left black card-name"
                   >See more</router-link>
                 </span>
               </div>
             </div>
-            <div class="d-block mt-2 mb-4">
-              <add-to-cart
-                :pId="product.id"
-                :pName="product.name"
-                :pPrice="product.price"
-                :pImage="product.image"
-                :pAmount="product.amount"
-              />
+            <div class="d-block mt-2 mb-4 text-center">
+              <add-to-cart :p_product="product" />
               <router-link
                 :to="{ name: 'details', 
-                    params: { p_product: product, p_id: product.id }}"
+                    params: { p_name: product.name, p_id: product.id }}"
                 class="btn bcustom-secondary"
               >
                 <span>
                   <i class="fa fa-search icon"></i>
                 </span>
               </router-link>
-              <add-to-compare
-                :pId="product.id"
-                :pName="product.name"
-                :pPrice="product.price"
-                :pImage="product.image"
-                :pDescription="product.description"
-                :pAmount="product.amount"
-                :pColor="product.color"
-                :pFrame="product.frame_material"
-                :pSpeed="product.speed"
-                :pWheelSize="product.wheel_size"
-                :pWheelSpec="product.wheel_spec"
-              />
+              <add-to-compare :p_product="product" />
             </div>
           </div>
         </slide>
@@ -115,11 +97,9 @@ export default {
   },
   methods: {
     loadProducts() {
-      fetch("/api/product/category?q=" + this.category)
-        .then(res => res.json())
-        .then(res => {
-          this.items = res;
-        })
+      axios
+        .get("/api/detail/category?q=" + this.category)
+        .then(({ data }) => (this.items = data))
         .catch(err => {
           console.log(err);
         });

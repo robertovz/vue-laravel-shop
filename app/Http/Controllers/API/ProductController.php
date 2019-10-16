@@ -85,7 +85,8 @@ class ProductController extends Controller
     public function show($id)
     {
         $product = Product::findOrFail($id);
-        return ['message' => 'Show product info'];
+        $productName = str_slug($product->name, '-');
+        return $product;
     }
 
     /**

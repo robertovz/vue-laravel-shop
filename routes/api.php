@@ -35,9 +35,10 @@ Route::put('/product/updateAmount', 'API\OrderController@updateAmount');
 
 
 Route::get('lastProducts','API\ProductController@showNew');
+Route::get('product/{id}','API\ProductController@show');
 
 Route::get('/items','API\ProductController@items');
-Route::get('/product/category','API\DetailController@category');
+Route::get('/detail/category','API\DetailController@category');
 Route::get('users/{user}/orders','API\UserController@showOrders');
 Route::get('/product/search','API\DetailController@search');
 Route::get('/order/search','API\OrderController@showOrders');

@@ -1,7 +1,7 @@
 <template>
     <div class="add-to-cart">
    
-        <button :disabled="(pAmount == 0)" type="button" class="btn bcustom-primary cart-btn" @click="addToCart" value="Add to Cart"> Add to Cart </button>
+        <button :disabled="(p_product.amount == 0)" type="button" class="btn bcustom-primary cart-btn" @click="addToCart" value="Add to Cart"> Add to Cart </button>
     
   </div>
 </template>
@@ -10,24 +10,13 @@
 export default {
   name: "add-to-cart",
       props: {
-        pId: 0,
-        pName: String,
-        pImage: String,
-        pPrice: 0,
-        pAmount: 0,
-        activity: "Added to the cart"
+        p_product: {}
       },
   data(){
     return {
-      item: {
-        id: this.pId,
-        activity: this.activity,
-        image: this.pImage,
-        name: this.pName,
-        price: this.pPrice,
-        amount: this.pAmount,
-        quantity: 1
-      },
+      item: this.p_product,
+      quantity: 1
+      
     }
   },
   methods:{

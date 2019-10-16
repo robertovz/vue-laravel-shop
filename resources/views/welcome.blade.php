@@ -37,12 +37,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
         
                 <div class="top-right links">
                     @auth
-                        <a href="{{ url('/profile') }}">Welcome, {{ Auth::user()->name }}</a>
+                        <a href="{{ url('/profile') }}"></a>
                     @else
-                        <a href="{{ route('login') }}">Login</a>
+                        <a href="{{ route('login') }}"></a>
 
                         @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="mr-3">Register</a>
+                            <a href="{{ route('register') }}" class="mr-3"></a>
                         @endif
                     @endauth
                 </div>

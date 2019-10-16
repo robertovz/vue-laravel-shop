@@ -8,7 +8,7 @@ class Product extends Model
 {
     protected $fillable = [
         'name', 'category', 'description', 'price', 'image', 'amount', 'color', 'frame_material', 
-        'speed', 'wheel_size', 'wheel_spec'
+        'speed', 'wheel_size', 'wheel_spec', 'total_rating'
     ];
     
     public function orders() {

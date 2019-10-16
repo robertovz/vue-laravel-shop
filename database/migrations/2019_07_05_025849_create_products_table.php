@@ -26,6 +26,7 @@ class CreateProductsTable extends Migration
             $table->string('speed');
             $table->string('wheel_size');
             $table->string('wheel_spec');
+            $table->double('total_rating')->default(0);
             $table->timestamps();
         });
     }

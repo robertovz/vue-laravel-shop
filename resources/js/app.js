@@ -1,3 +1,16 @@
+
+import Menu from "./components/menu/Menu";
+import Users from "./components/menu/Admin/Users";
+import Product from "./components/menu/Admin/Products";
+import Orders from "./components/menu/Admin/Orders";
+import Profile from "./components/menu/User/Profile";
+import Userboard from "./components/menu/User/Userboard";
+import Details from "./components/Products/Details";
+import Products from "./components/Products/ProductList/ProductList";
+import Cart from "./components/Cart/CheckOut";
+import miniCart from "./components/Cart/MiniCart";
+import notFound from "./components/NotFound";
+
 import App from './components/App.vue'
 
 require('./bootstrap');
@@ -66,81 +79,56 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter);
 
 let routes = [
-    {path: '/', component: require('./components/Home.vue').default},
-
-    {path: '', component: require('./components/User/Menu.vue').default, 
-        children: [  
-            {path: 'users', component: require('./components/admin/User/Users.vue').default},
-            {path: 'product', component: require('./components/admin/Product/Products.vue').default},
-            {path: 'orders', component: require('./components/admin/Product/Orders.vue').default},
-            {path: 'developer', component: require('./components/admin/dev/Developer.vue').default},
-            {path: 'profile', component: require('./components/User/Profile.vue').default},
-            {path: 'userBoard', component: require('./components/User/UserBoard.vue').default},
-        ]    
+    { path: '/', component: require('./components/Home.vue').default },
+    { path: '/products', name: "products", component: Products },
+    { path: '/details/:p_name/:p_id', name: "details", component: Details },
+    {
+        path: '', name: "Menu", component: Menu, meta: { requiresAuth: true },
+        children: [
+            { path: "/users", name: "Users", component: Users },
+            { path: "/product", name: "Product", component: Product },
+            { path: "/orders", name: "Orders", component: Orders },
+            { path: 'developer', component: require('./components/Menu/Developer.vue').default },
+            { path: "/profile", name: "Profile", component: Profile },
+            { path: "/userboard", name: "Userboard", component: Userboard },
+        ]
     },
 
-    {path: '/miniCart', name:'miniCart', component: require('./components/Cart/MiniCart.vue').default},
-    {path: '/details', name:'details', component: require('./components/Products/Details.vue').default},
-    {path: '/products', name:"products", component: require('./components/Products/ProductList/ProductList.vue').default},
-    {path: '/checkout', component: require('./components/Cart/Checkout.vue').default},
-    {path: '*', component: require('./components/NotFound.vue').default},
+    { path: '/miniCart', name: 'miniCart', component: miniCart },
+    { path: '/checkout', name: 'Cart', component: Cart },
+    { path: '*', name: 'notFound', component: notFound },
 ]
 
 const router = new VueRouter({
-    mode: 'hash',
+    mode: 'history',
     routes,
-    scrollBehavior (to, from, savedPosition) {
+    scrollBehavior(to, from, savedPosition) {
         return { x: 0, y: 0 };
     },
 })
 
-Vue.component(
-    'passport-clients',
-    require('./components/passport/Clients.vue')
-);
-
-Vue.component(
-    'passport-authorized-clients',
-    require('./components/passport/AuthorizedClients.vue')
-);
-
-Vue.component(
-    'passport-personal-access-tokens',
-    require('./components/passport/PersonalAccessTokens.vue')
-);
-
-Vue.component(
-    'example-component', 
-require('./components/ExampleComponent.vue').default);
-
-Vue.component(
-    'add-to-cart', 
-require('./components/Cart/AddToCart.vue').default);
-
-Vue.component(
-    'add-to-compare', 
-require('./components/Compare/AddToCompare.vue').default);
-
-Vue.component( 
-    'navbar', 
-require('./components/Navbar.vue').default);
+Vue.component('passport-clients', require('./components/passport/Clients.vue'));
+Vue.component('passport-authorized-clients', require('./components/passport/AuthorizedClients.vue'));
+Vue.component('passport-personal-access-tokens', require('./components/passport/PersonalAccessTokens.vue'));
+Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('add-to-cart', require('./components/Cart/AddToCart.vue').default);
+Vue.component('add-to-compare', require('./components/Compare/AddToCompare.vue').default);
+Vue.component('navbar', require('./components/Navbar.vue').default);
 Vue.component('footer-component', require('./components/Footer.vue').default);
 Vue.component('products-component', require('./components/Products/ProductList/Products.vue').default);
 Vue.component('miniCart', require('./components/Cart/MiniCart.vue').default);
 Vue.component('miniList', require('./components/Compare/MiniList.vue').default);
-Vue.component('newProducts', require('./components/Products/NewProducts.vue').default);
-Vue.component('relatedProducts', require('./components/Products/RelatedProducts.vue').default);
 Vue.component('productsCategory', require('./components/Products/ProductsCategory.vue').default);
 Vue.component('icon-corner', require('./components/IconCorner.vue').default);
 Vue.component('star-rating', StarRating);
 
 Vue.component('compareList', require('./components/Compare/CompareList.vue').default)
 
-Vue.filter('upText', function(text) {
+Vue.filter('upText', function (text) {
     return text.charAt(0).toUppercase() + text.slice(1);
 })
 
-Vue.filter('myDate', function(created) {
+Vue.filter('myDate', function (created) {
     return moment(created).format('MMMM Do YYYY');
 })
 
@@ -162,9 +150,11 @@ router.beforeResolve((to, from, next) => {
     app.$Progress.start()
     const requiresAuth = to.matched.some(x => x.meta.requiresAuth)
 
-    if(requiresAuth) {
+    const currentUser = Vue.prototype.$gate.user == undefined || '' ? true : false;
+
+    if (requiresAuth && currentUser) {
         next('/')
-    } else if(requiresAuth) {
+    } else if (requiresAuth && !currentUser) {
         next()
     } else {
         next()
@@ -172,6 +162,6 @@ router.beforeResolve((to, from, next) => {
 })
 
 router.afterEach((to, from) => {
-// Complete the animation of the route progress bar.
+    // Complete the animation of the route progress bar.
     app.$Progress.finish()
 })
